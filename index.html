@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IndiaWx - India Weather Forecast</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div id="map"></div>
+      
+      <!-- Top Bar: Logo & Search -->
+      <header class="glass-panel top-bar">
+        <div class="logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19C19.9853 19 22 16.9853 22 14.5C22 12.1332 20.1772 10.2037 17.8765 10.021C17.4393 6.61937 14.5097 4 11 4C7.13401 4 4 7.13401 4 11C4 11.2335 4.01143 11.4644 4.03358 11.6917C2.29051 12.3551 1 14.027 1 16C1 18.2091 2.79086 20 5 20H17.5Z"/></svg>
+          <h1>IndiaWx</h1>
+        </div>
+        <div class="search-container">
+          <input type="text" id="location-search" placeholder="Search any place in India..." autocomplete="off" />
+          <ul id="search-results" class="dropdown hidden"></ul>
+        </div>
+        <button id="get-report-btn" class="btn-primary" disabled>Get 3-Day Report</button>
+      </header>
+
+      <!-- Right Panel: Controls -->
+      <aside class="glass-panel controls-panel">
+        <div class="control-group">
+          <label>Parameter</label>
+          <div class="radio-group" id="parameter-selector">
+            <button class="radio-btn active" data-param="wind">Wind</button>
+            <button class="radio-btn" data-param="rain">Rainfall</button>
+            <button class="radio-btn" data-param="temperature">Temperature</button>
+          </div>
+        </div>
+        <div class="control-group" id="wind-level-group">
+          <label>Wind Level</label>
+          <div class="select-wrapper">
+            <select id="wind-level-selector">
+              <option value="10m">Surface (10m)</option>
+              <option value="925hPa">925 hPa</option>
+              <option value="850hPa">850 hPa</option>
+              <option value="700hPa">700 hPa</option>
+              <option value="500hPa">500 hPa</option>
+              <option value="200hPa">200 hPa</option>
+            </select>
+          </div>
+        </div>
+        <div class="control-group">
+          <label>Forecast Model</label>
+          <div class="select-wrapper">
+            <select id="model-selector">
+              <option value="best_match">Best Match (Auto)</option>
+              <option value="ecmwf_ifs04">ECMWF (High Accuracy)</option>
+              <option value="icon_global">ICON (Regional Detail)</option>
+              <option value="gfs_seamless">GFS (Global)</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="legend-container" id="legend">
+          <!-- Legend dynamic content -->
+        </div>
+      </aside>
+
+      <!-- Bottom Panel: Timeline -->
+      <div class="glass-panel timeline-panel">
+        <div class="timeline-header">
+          <span id="current-time-display">Loading time...</span>
+        </div>
+        <input type="range" id="time-slider" min="0" max="72" value="0" step="1" />
+        <div class="timeline-labels">
+          <span>Now</span>
+          <span>+24h</span>
+          <span>+48h</span>
+          <span>+72h</span>
+        </div>
+      </div>
+      
+      <!-- Current Location Snapshot -->
+      <div id="snapshot-panel" class="glass-panel snapshot-panel hidden">
+        <h3 id="snapshot-location">Loading...</h3>
+        <div class="snapshot-data">
+          <div class="snap-item"><span class="icon">🌡️</span><span id="snap-temp">--°C</span></div>
+          <div class="snap-item"><span class="icon">💨</span><span id="snap-wind">-- m/s</span></div>
+          <div class="snap-item"><span class="icon">🌧️</span><span id="snap-rain">-- mm</span></div>
+        </div>
+      </div>
+
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
